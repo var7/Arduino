@@ -11,7 +11,7 @@ light = ['bright', 'dim', 'moderate', 'dark']
 # switch = ['YES','NO']
 attributes = [day, time, temp, light]# switch]
 
-lines = 10
+lines = 1
 file = open(filename, 'w+')
 # file.write("day,time,temp,light,switch\n")
 for i in range(lines):
