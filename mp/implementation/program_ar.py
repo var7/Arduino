@@ -2,13 +2,13 @@ import Node
 import serial
 import time
 
-ser = serial.Serial('/dev/cu.usbmodem1421', 9600)
+ser = serial.Serial('/dev/cu.usbmodem14111', 9600)
 time.sleep(2)
 connnected = False
 
 while not connnected:
-		serin = ser.read()
-		connnected = True
+	serin = ser.read()
+	connnected = True
 
 data = [[]]
 f = open('Switch.csv')

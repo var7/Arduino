@@ -1,4 +1,14 @@
 import Node
+import serial
+import time
+
+ser = serial.Serial('/dev/cu.usbmodem14111', 9600)
+time.sleep(2)
+connnected = False
+
+while not connnected:
+	serin = ser.read()
+	connnected = True
 
 data = [[]]
 f = open('Switch.csv')
@@ -13,6 +23,7 @@ for entry in data:
 	count += 1
 	tempDict = tree.copy()
 	result = ""
+	ser.flush()
 	while(isinstance(tempDict, dict)):
 		root = Node.Node(tempDict.keys()[0], tempDict[tempDict.keys()[0]])
 		tempDict = tempDict[tempDict.keys()[0]]
@@ -24,6 +35,10 @@ for entry in data:
 			tempDict = tempDict[value]
 		else:
 			print "can't process input %s" % count
-			result = "?"
+			result = "NO"
 			break
 	print ("entry%s = %s" % (count, result))
+	ser.write(result)
+	time.sleep(1)
+
+ser.close()

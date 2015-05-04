@@ -5,12 +5,14 @@ void setup() {
   Serial.begin(9600);
   pinMode(13, OUTPUT);
   Serial.write('1'); 
+  Serial.println('Hi');
 }
 
 void loop() {
     while(!Serial.available()) {}
   while (Serial.available()) // this will be skipped if no data present, leading to the code sitting in the delay function below
  {
+    Serial.println("Hi!");
     if (Serial.available() > 0)
     {
       char c = Serial.read();  //gets one byte from serial buffer
@@ -18,6 +20,8 @@ void loop() {
       Serial.println(readString);
       Serial.flush();
     }
+    Serial.println("Recieved data");
+    Serial.println(readString);
     if (readString.length() > 0)
     {
         if (readString.equals(String("YES"))) {

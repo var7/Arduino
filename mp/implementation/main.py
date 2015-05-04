@@ -27,8 +27,15 @@ def main():
     print "generated decision tree"
     #Generate program
     file = open('program.py', 'w')
-    file.write("import Node\n\n")
+    file.write("import Node\nimport serial\nimport time\n\n")
     #open input file
+    file.write("ser = serial.Serial('/dev/cu.usbmodem14111', 9600)\n")
+    file.write("time.sleep(2)\n")
+    file.write("connnected = False\n\n")
+    file.write("while not connnected:\n")
+    file.write("\tserin = ser.read()\n")
+    file.write("\tconnnected = True\n\n")
+    #connect arduino
     file.write("data = [[]]\n")
     """
     IMPORTANT: Change this file path to change testing data 
@@ -46,6 +53,7 @@ def main():
     #copy dictionary
     file.write("\ttempDict = tree.copy()\n")
     file.write("\tresult = \"\"\n")
+    file.write("\tser.flush()\n")
     #generate actual tree
     file.write("\twhile(isinstance(tempDict, dict)):\n")
     file.write("\t\troot = Node.Node(tempDict.keys()[0], tempDict[tempDict.keys()[0]])\n")
@@ -61,10 +69,14 @@ def main():
     #otherwise, break
     file.write("\t\telse:\n")
     file.write("\t\t\tprint \"can't process input %s\" % count\n")
-    file.write("\t\t\tresult = \"?\"\n")
+    file.write("\t\t\tresult = \"NO\"\n")
     file.write("\t\t\tbreak\n")
     #print solutions 
     file.write("\tprint (\"entry%s = %s\" % (count, result))\n")
+    #write to serial
+    file.write("\tser.write(result)\n")
+    file.write("\ttime.sleep(1)")
+    file.write("\n\nser.close()")
     print "written program"
     
     

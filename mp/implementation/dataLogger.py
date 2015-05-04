@@ -13,7 +13,7 @@ def logSensors():
     serialConnection = serial.Serial( SERIAL_PORT, timeout=2.0 )
     
     # open the output file (for appending)
-    outputFile = open( "sensorLog.csv", "a" )
+    outputFile = open( "SwitchTraining.csv", "a" )
     
     # loop until user breaks
     while True:
